@@ -1,28 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ClientSimulator.Model;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Linq;
 
 namespace ClientSimulator
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Client> Clients
+        {
+            get { return (ObservableCollection<Client>)GetValue(ClientsProperty); }
+            set { SetValue(ClientsProperty, value); }
+        }
+
+        public static readonly DependencyProperty ClientsProperty =
+            DependencyProperty.Register("Clients", typeof(ObservableCollection<Client>), typeof(MainWindow));
+
+
+        public ObservableCollection<Realtor> Realtors
+        {
+            get { return (ObservableCollection<Realtor>)GetValue(RealtorsProperty); }
+            set { SetValue(RealtorsProperty, value); }
+        }
+
+        public static readonly DependencyProperty RealtorsProperty =
+            DependencyProperty.Register("Realtors", typeof(ObservableCollection<Realtor>), typeof(MainWindow));
+
         public MainWindow()
         {
+            Clients = new ObservableCollection<Client>(App.db.Client);
             InitializeComponent();
+        }
+
+        private void GridSplitter_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            
         }
     }
 }
