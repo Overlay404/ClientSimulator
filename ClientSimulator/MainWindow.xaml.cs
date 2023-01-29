@@ -29,12 +29,33 @@ namespace ClientSimulator
         public MainWindow()
         {
             Clients = new ObservableCollection<Client>(App.db.Client);
+            Realtors = new ObservableCollection<Realtor>(App.db.Realtor);
             InitializeComponent();
         }
 
-        private void GridSplitter_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void RemoveClient(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            
+            if (ClientsTable.SelectedItem == null) return;
+
+            Clients.Remove(ClientsTable.SelectedItem as Client);
         }
+
+        private void AddClient(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void RemoveRealtor(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (RealtorsTable.SelectedItem == null) return;
+
+            Realtors.Remove(RealtorsTable.SelectedItem as Realtor);
+        }
+
+        private void AddRealtor(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
+
     }
 }

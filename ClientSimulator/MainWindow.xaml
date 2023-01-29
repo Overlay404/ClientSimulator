@@ -3,40 +3,68 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" 
-                              x:Name="ClientsColumnWight"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <GridSplitter HorizontalAlignment="Center"
-                      Width="3"
-                      Grid.Column="1"
-                      Grid.Row="1" 
-                      SizeChanged="GridSplitter_SizeChanged"/>
-        <DockPanel Grid.Column="0"
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <fa:ImageAwesome Icon="TrashOutline"
+                             Width="18"
+                             MouseDown="RemoveClient"/>
+            <fa:ImageAwesome Icon="PlusCircle"
+                             Width="18"
+                             Margin="5 0 10 0"
+                             MouseDown="AddClient"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Column="1">
+            <fa:ImageAwesome Icon="TrashOutline"
+                             Width="18"
+                             MouseDown="RemoveRealtor"/>
+            <fa:ImageAwesome Icon="PlusCircle"
+                             Width="18"
+                             Margin="5 0 10 0"
+                             MouseDown="AddRealtor"/>
+        </StackPanel>
+        <DataGrid x:Name="ClientsTable"
+                  ItemsSource="{Binding Clients}" 
+                  AutoGenerateColumns="False"
+                  Grid.Column="0"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Почта" Binding="{Binding Email}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DockPanel Grid.Column="1"
                    Grid.Row="1">
-            <ListView ItemsSource="{Binding Clients}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <WrapPanel x:Name="ContentClientsPanel">
-                            <TextBlock Text="{Binding Fullname}"/> 
-                            <TextBlock Text="{Binding Phone}"
-                                       Margin="10 0 0 0"/> 
-                            <TextBlock Text="{Binding Email}"
-                                       Margin="10 0 0 0"/> 
-                        </WrapPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <DataGrid x:Name="RealtorsTable"
+                      ItemsSource="{Binding Realtors}" 
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
+                    <DataGridTextColumn Header="Процентная ставка" Binding="{Binding DealShare}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </DockPanel>
     </Grid>
 </Window>
