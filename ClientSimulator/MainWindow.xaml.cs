@@ -37,7 +37,11 @@ namespace ClientSimulator
         {
             if (ClientsTable.SelectedItem == null) return;
 
-            Clients.Remove(ClientsTable.SelectedItem as Client);
+            if(MessageBox.Show("Вы действительно хотите удалить?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Clients.Remove(ClientsTable.SelectedItem as Client);
+            }
+
         }
 
         private void AddClient(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -49,7 +53,10 @@ namespace ClientSimulator
         {
             if (RealtorsTable.SelectedItem == null) return;
 
-            Realtors.Remove(RealtorsTable.SelectedItem as Realtor);
+            if (MessageBox.Show("Вы действительно хотите удалить?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Clients.Remove(ClientsTable.SelectedItem as Client);
+            }
         }
 
         private void AddRealtor(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -57,5 +64,9 @@ namespace ClientSimulator
 
         }
 
+        private void DataGridTextColumn_Error(object sender, System.Windows.Controls.ValidationErrorEventArgs e)
+        {
+
+        }
     }
 }

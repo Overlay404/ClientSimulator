@@ -27,7 +27,7 @@
                              Margin="5 0 10 0"
                              MouseDown="AddClient"/>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
@@ -62,8 +62,17 @@
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
                     <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
-                    <DataGridTextColumn Header="Процентная ставка" Binding="{Binding DealShare}"/>
+                    <DataGridTextColumn Header="Процентная ставка" Binding="{Binding DealShare}">
+                        
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
+                <DataGrid.Template>
+                    <ControlTemplate>
+                        <DataGridTextColumn>
+                            
+                        </DataGridTextColumn>
+                    </ControlTemplate>
+                </DataGrid.Template>
             </DataGrid>
         </DockPanel>
     </Grid>
