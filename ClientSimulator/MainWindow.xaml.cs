@@ -68,5 +68,10 @@ namespace ClientSimulator
         {
 
         }
+
+        private void Window_Closed(object sender, System.EventArgs e)
+        {
+            App.db.SaveChanges();
+        }
     }
 }
