@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ClientSimulator
 {
@@ -78,18 +69,40 @@ namespace ClientSimulator
 
         private bool CheckValueFields()
         {
+            bool checkValue = false;
+
             switch (IsRealtor)
             {
                 case false:
+
+
+                    Regex regexEmail = new Regex(@"([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)");
+                    Regex regexPhone = new Regex(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
+                    string txtMessage = "";
+
                     if (string.IsNullOrEmpty(Name.Text) || string.IsNullOrEmpty(Surname.Text)
-                    || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(Phone.Text) && string.IsNullOrEmpty(Email.Text)) return true;
+                    || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(Phone.Text) && string.IsNullOrEmpty(Email.Text)) checkValue = true;
+
+                    if (!regexEmail.IsMatch(Email.Text) && !regexPhone.IsMatch(Phone.Text))
+                    {
+                        MessageBox.Show("В поле Почта или Телефон неверный формат строки");
+                        checkValue = true;
+                    }
+
                     break;
                 case true:
+
                     if (string.IsNullOrEmpty(Name.Text) || string.IsNullOrEmpty(Surname.Text)
-                    || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(DealShare.Text)) return true;
+                    || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(DealShare.Text)) checkValue = true;
+
+                    if (DealShare.Text.All(d => char.IsLetter(d)))
+                    {
+                        MessageBox.Show("В поле Процентная ставка неверный формат строки");
+                        checkValue = true;
+                    }
                     break;
             }
-                return false;
+            return checkValue;
         }
 
         private void Window_Closed(object sender, EventArgs e)
