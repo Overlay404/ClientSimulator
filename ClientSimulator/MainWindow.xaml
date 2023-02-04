@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="Окно клиента и реелтора" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -31,7 +32,7 @@
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
-                    Grid.Column="1">
+                    Grid.Column="2">
             <fa:ImageAwesome Icon="TrashOutline"
                              Width="18"
                              MouseDown="RemoveRealtor"/>
@@ -43,7 +44,6 @@
         <DataGrid x:Name="ClientsTable"
                   ItemsSource="{Binding Clients}" 
                   AutoGenerateColumns="False"
-                  Grid.Column="0"
                   Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
@@ -53,7 +53,8 @@
                 <DataGridTextColumn Header="Почта" Binding="{Binding Email}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DockPanel Grid.Column="1"
+        <GridSplitter Grid.Column="1" Width="5" Grid.Row="1" HorizontalAlignment="Center"/>
+        <DockPanel Grid.Column="2"
                    Grid.Row="1">
             <DataGrid x:Name="RealtorsTable"
                       ItemsSource="{Binding Realtors}" 

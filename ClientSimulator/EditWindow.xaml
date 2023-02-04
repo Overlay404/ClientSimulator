@@ -1,0 +1,40 @@
+﻿<Window x:Class="ClientSimulator.EditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Редактирование" Height="300" Width="280" Closed="Window_Closed">
+    <Grid>
+        <Border Padding="20">
+        <StackPanel>
+            <StackPanel>
+                <TextBlock Text="Имя"/>
+                <TextBox x:Name="Name"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Фамилия"/>
+                <TextBox x:Name="Surname"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Отчество"/>
+                <TextBox x:Name="Patronomic"/>
+            </StackPanel>
+            <StackPanel x:Name="GroupPhone">
+                <TextBlock Text="Телефон"/>
+                <TextBox x:Name="Phone"/>
+            </StackPanel>
+            <StackPanel x:Name="GroupEmail">
+                <TextBlock Text="Почта"/>
+                <TextBox x:Name="Email"/>
+            </StackPanel>
+            <StackPanel x:Name="GroupDealShare">
+                <TextBlock Text="Процентная ставка"/>
+                <TextBox x:Name="DealShare"/>
+            </StackPanel>
+            <Button Content="Добавить"
+                    Margin="0 10 0 0" Click="Button_Click"/>
+        </StackPanel>
+        </Border>
+    </Grid>
+</Window>

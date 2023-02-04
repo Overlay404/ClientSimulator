@@ -7,6 +7,7 @@ namespace ClientSimulator
 {
     public partial class MainWindow : Window
     {
+
         public ObservableCollection<Client> Clients
         {
             get { return (ObservableCollection<Client>)GetValue(ClientsProperty); }
@@ -26,11 +27,14 @@ namespace ClientSimulator
         public static readonly DependencyProperty RealtorsProperty =
             DependencyProperty.Register("Realtors", typeof(ObservableCollection<Realtor>), typeof(MainWindow));
 
+        public static MainWindow Instance;
+
         public MainWindow()
         {
             Clients = new ObservableCollection<Client>(App.db.Client);
             Realtors = new ObservableCollection<Realtor>(App.db.Realtor);
             InitializeComponent();
+            Instance = this;
         }
 
         private void RemoveClient(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -39,14 +43,14 @@ namespace ClientSimulator
 
             if(MessageBox.Show("Вы действительно хотите удалить?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                App.db.Client.Remove(ClientsTable.SelectedItem as Client);
                 Clients.Remove(ClientsTable.SelectedItem as Client);
             }
-
         }
 
         private void AddClient(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            new EditWindow(false).Show();
         }
 
         private void RemoveRealtor(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -55,13 +59,14 @@ namespace ClientSimulator
 
             if (MessageBox.Show("Вы действительно хотите удалить?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                Clients.Remove(ClientsTable.SelectedItem as Client);
+                App.db.Realtor.Remove(RealtorsTable.SelectedItem as Realtor);
+                Realtors.Remove(RealtorsTable.SelectedItem as Realtor);
             }
         }
 
         private void AddRealtor(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            new EditWindow(true).Show();
         }
 
         private void DataGridTextColumn_Error(object sender, System.Windows.Controls.ValidationErrorEventArgs e)
