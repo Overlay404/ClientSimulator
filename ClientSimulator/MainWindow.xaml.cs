@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Linq;
+using System.Windows.Controls;
+using System;
+using System.Text.RegularExpressions;
 
 namespace ClientSimulator
 {
@@ -69,14 +72,40 @@ namespace ClientSimulator
             new EditWindow(true).Show();
         }
 
-        private void DataGridTextColumn_Error(object sender, System.Windows.Controls.ValidationErrorEventArgs e)
-        {
-
-        }
-
         private void Window_Closed(object sender, System.EventArgs e)
         {
             App.db.SaveChanges();
+        }
+
+        private void RealtorsTable_CellEditEnding(object sender, System.Windows.Controls.DataGridCellEditEndingEventArgs e)
+        {
+            Regex regexEmail = new Regex(@"([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)");
+            Regex regexPhone = new Regex(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
+
+            try
+            {
+                if (e.Column.Header.ToString() == "Процентная ставка" && int.Parse((e.EditingElement as TextBox).Text) > 100)
+                {
+                    MessageBox.Show("Значение может быть в диапазоне от 0 до 100");
+                    (e.EditingElement as TextBox).Text = "0";
+                }
+
+                if (e.Column.Header.ToString() == "Телефон" && !regexPhone.IsMatch((e.EditingElement as TextBox).Text))
+                {
+                    MessageBox.Show("Поле Телефон не соответствует формату");
+                    (e.EditingElement as TextBox).Text = "";
+                }
+
+                if (e.Column.Header.ToString() == "Почта" && !regexEmail.IsMatch((e.EditingElement as TextBox).Text))
+                {
+                    MessageBox.Show("Поле Почта не соответствует формату");
+                    (e.EditingElement as TextBox).Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

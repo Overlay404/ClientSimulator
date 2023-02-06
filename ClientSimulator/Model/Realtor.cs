@@ -18,6 +18,6 @@ namespace ClientSimulator.Model
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        public Nullable<int> DealShare { get; set; }
+        public Nullable<double> DealShare { get; set; }
     }
 }

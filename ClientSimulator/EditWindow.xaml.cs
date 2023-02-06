@@ -38,13 +38,14 @@ namespace ClientSimulator
 
         private void AddNewRealtors()
         {
+            
             if (CheckValueFields()) return;
             var NewObjectRealtor = new Model.Realtor
             {
                 Name = Name.Text.Trim(),
                 Surname = Surname.Text.Trim(),
                 Patronymic = Patronomic.Text.Trim(),
-                DealShare = int.Parse(DealShare.Text.Trim())
+                DealShare = double.Parse(DealShare.Text.Trim())
             };
             MainWindow.Instance.Realtors.Add(NewObjectRealtor);
             App.db.Realtor.Add(NewObjectRealtor);
@@ -69,40 +70,51 @@ namespace ClientSimulator
 
         private bool CheckValueFields()
         {
-            bool checkValue = false;
-
-            switch (IsRealtor)
+                bool checkValue = false;
+            try
             {
-                case false:
+
+                switch (IsRealtor)
+                {
+                    case false:
 
 
-                    Regex regexEmail = new Regex(@"([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)");
-                    Regex regexPhone = new Regex(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
-                    string txtMessage = "";
+                        Regex regexEmail = new Regex(@"([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)");
+                        Regex regexPhone = new Regex(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
+                        string txtMessage = "";
 
-                    if (string.IsNullOrEmpty(Name.Text) || string.IsNullOrEmpty(Surname.Text)
-                    || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(Phone.Text) && string.IsNullOrEmpty(Email.Text)) checkValue = true;
 
-                    if (!regexEmail.IsMatch(Email.Text) && !regexPhone.IsMatch(Phone.Text))
-                    {
-                        MessageBox.Show("В поле Почта или Телефон неверный формат строки");
-                        checkValue = true;
-                    }
 
-                    break;
-                case true:
+                        if (!regexEmail.IsMatch(Email.Text) && !regexPhone.IsMatch(Phone.Text))
+                        {
+                            MessageBox.Show("В поле Почта или Телефон неверный формат строки");
+                            checkValue = true;
+                        }
 
-                    if (string.IsNullOrEmpty(Name.Text) || string.IsNullOrEmpty(Surname.Text)
-                    || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(DealShare.Text)) checkValue = true;
+                        break;
+                    case true:
 
-                    if (DealShare.Text.All(d => char.IsLetter(d)))
-                    {
-                        MessageBox.Show("В поле Процентная ставка неверный формат строки");
-                        checkValue = true;
-                    }
-                    break;
+                        if (string.IsNullOrEmpty(Name.Text) || string.IsNullOrEmpty(Surname.Text)
+                        || string.IsNullOrEmpty(Patronomic.Text) || string.IsNullOrEmpty(DealShare.Text))
+                        {
+                            MessageBox.Show("Нет ФИО");
+                            checkValue = true;
+                        }
+
+                        if (DealShare.Text.All(d => char.IsLetter(d)) || double.Parse(DealShare.Text) > 100 || double.Parse(DealShare.Text) < 0)
+                        {
+                            MessageBox.Show("В поле Процентная ставка неверный формат строки");
+                            checkValue = true;
+                        }
+                        break;
+                }
             }
-            return checkValue;
+            catch
+            {
+                MessageBox.Show("Что-то пошло не так");
+                checkValue = true;
+            }
+                return checkValue;
         }
 
         private void Window_Closed(object sender, EventArgs e)

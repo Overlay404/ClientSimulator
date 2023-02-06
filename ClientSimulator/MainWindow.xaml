@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="Окно клиента и реелтора" Height="450" Width="800"
+        Title="Окно клиента и риелтора" Height="500" Width="1000"
+        ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,6 +29,14 @@
                              Margin="5 0 10 0"
                              MouseDown="AddClient"/>
         </StackPanel>
+        <TextBlock Text="Клиент"
+                   Margin="10 0 0 0"
+                   FontSize="16"
+                   HorizontalAlignment="Left"/>
+        <TextBlock Text="Риелтор" Grid.Column="2"
+                   Margin="10 0 0 0"
+                   FontSize="16"
+                   HorizontalAlignment="Left"/>
 
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
@@ -43,8 +52,10 @@
         </StackPanel>
         <DataGrid x:Name="ClientsTable"
                   ItemsSource="{Binding Clients}" 
+                  CanUserAddRows="False"
                   AutoGenerateColumns="False"
-                  Grid.Row="1">
+                  Grid.Row="1"
+                  CellEditEnding="RealtorsTable_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
@@ -57,8 +68,9 @@
         <DockPanel Grid.Column="2"
                    Grid.Row="1">
             <DataGrid x:Name="RealtorsTable"
-                      ItemsSource="{Binding Realtors}" 
-                      AutoGenerateColumns="False">
+                      ItemsSource="{Binding Realtors}"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False" CellEditEnding="RealtorsTable_CellEditEnding">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
