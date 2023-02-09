@@ -101,6 +101,21 @@ namespace ClientSimulator
                     MessageBox.Show("Поле Почта не соответствует формату");
                     (e.EditingElement as TextBox).Text = "";
                 }
+                if (e.Column.Header.ToString() == "Имя" && (e.EditingElement as TextBox).Text.All(c => char.IsLetter(c)))
+                {
+                    MessageBox.Show("Поле Почта не соответствует формату");
+                    (e.EditingElement as TextBox).Text = "";
+                }
+                if (e.Column.Header.ToString() == "Фамилия" && (e.EditingElement as TextBox).Text.All(c => char.IsLetter(c)))
+                {
+                    MessageBox.Show("Поле Почта не соответствует формату");
+                    (e.EditingElement as TextBox).Text = "";
+                }
+                if (e.Column.Header.ToString() == "Отчество" && (e.EditingElement as TextBox).Text.All(c => char.IsLetter(c)))
+                {
+                    MessageBox.Show("Поле Почта не соответствует формату");
+                    (e.EditingElement as TextBox).Text = "";
+                }
             }
             catch (Exception ex)
             {

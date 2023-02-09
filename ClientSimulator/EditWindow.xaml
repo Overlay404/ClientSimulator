@@ -10,19 +10,23 @@
         <StackPanel>
             <StackPanel>
                 <TextBlock Text="Имя"/>
-                <TextBox x:Name="Name"/>
+                <TextBox x:Name="Name"
+                         KeyDown="Name_KeyDown"/>
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Фамилия"/>
-                <TextBox x:Name="Surname"/>
+                <TextBox x:Name="Surname"
+                         KeyDown="Surname_KeyDown"/>
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Отчество"/>
-                <TextBox x:Name="Patronomic"/>
+                <TextBox x:Name="Patronomic"
+                         KeyDown="Patronomic_KeyDown"/>
             </StackPanel>
             <StackPanel x:Name="GroupPhone">
                 <TextBlock Text="Телефон"/>
-                <TextBox x:Name="Phone"/>
+                <TextBox x:Name="Phone"
+                         KeyDown="Phone_KeyDown"/>
             </StackPanel>
             <StackPanel x:Name="GroupEmail">
                 <TextBlock Text="Почта"/>
@@ -30,7 +34,8 @@
             </StackPanel>
             <StackPanel x:Name="GroupDealShare">
                 <TextBlock Text="Процентная ставка"/>
-                <TextBox x:Name="DealShare"/>
+                <TextBox x:Name="DealShare"
+                         KeyDown="DealShare_KeyDown"/>
             </StackPanel>
             <Button Content="Добавить"
                     Margin="0 10 0 0" Click="Button_Click"/>

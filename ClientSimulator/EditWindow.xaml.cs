@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ClientSimulator
 {
@@ -120,6 +121,43 @@ namespace ClientSimulator
         private void Window_Closed(object sender, EventArgs e)
         {
             App.db.SaveChanges();
+        }
+
+        private void Name_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            HandledDigit(e);
+        }
+
+        private void Surname_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            HandledDigit(e);
+        }
+
+        private void Patronomic_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            HandledDigit(e);
+        }
+
+        private void Phone_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            HandledLetter(e);
+        }
+
+        private void DealShare_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            HandledLetter(e);
+        }
+
+        void HandledLetter(System.Windows.Input.KeyEventArgs e)
+        {
+            if (new KeyConverter().ConvertToString(e.Key).All(letter => char.IsLetter(letter)))
+                e.Handled = true;
+        }
+
+        void HandledDigit(System.Windows.Input.KeyEventArgs e)
+        {
+            if (new KeyConverter().ConvertToString(e.Key).All(letter => char.IsDigit(letter)))
+                e.Handled = true;
         }
     }
 }
