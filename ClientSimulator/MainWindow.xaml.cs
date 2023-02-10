@@ -101,19 +101,19 @@ namespace ClientSimulator
                     MessageBox.Show("Поле Почта не соответствует формату");
                     (e.EditingElement as TextBox).Text = "";
                 }
-                if (e.Column.Header.ToString() == "Имя" && (e.EditingElement as TextBox).Text.All(c => char.IsLetter(c)))
+                if (e.Column.Header.ToString() == "Имя" && (e.EditingElement as TextBox).Text.Any(c => char.IsDigit(c)))
                 {
-                    MessageBox.Show("Поле Почта не соответствует формату");
+                    MessageBox.Show("Поле Имя не соответствует формату");
                     (e.EditingElement as TextBox).Text = "";
                 }
-                if (e.Column.Header.ToString() == "Фамилия" && (e.EditingElement as TextBox).Text.All(c => char.IsLetter(c)))
+                if (e.Column.Header.ToString() == "Фамилия" && (e.EditingElement as TextBox).Text.Any(c => char.IsDigit(c)))
                 {
-                    MessageBox.Show("Поле Почта не соответствует формату");
+                    MessageBox.Show("Поле Фамилия не соответствует формату");
                     (e.EditingElement as TextBox).Text = "";
                 }
-                if (e.Column.Header.ToString() == "Отчество" && (e.EditingElement as TextBox).Text.All(c => char.IsLetter(c)))
+                if (e.Column.Header.ToString() == "Отчество" && (e.EditingElement as TextBox).Text.Any(c => char.IsDigit(c)))
                 {
-                    MessageBox.Show("Поле Почта не соответствует формату");
+                    MessageBox.Show("Поле Отчество не соответствует формату");
                     (e.EditingElement as TextBox).Text = "";
                 }
             }

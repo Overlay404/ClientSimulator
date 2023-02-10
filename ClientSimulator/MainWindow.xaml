@@ -8,7 +8,7 @@
         Title="Окно клиента и риелтора" Height="500" Width="1000"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" Closed="Window_Closed">
-    <Grid>
+    <Grid Margin="10 10 10 0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5"/>

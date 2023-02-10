@@ -26,7 +26,7 @@
             <StackPanel x:Name="GroupPhone">
                 <TextBlock Text="Телефон"/>
                 <TextBox x:Name="Phone"
-                         KeyDown="Phone_KeyDown"/>
+                         LostFocus="Phone_LostFocus"/>
             </StackPanel>
             <StackPanel x:Name="GroupEmail">
                 <TextBlock Text="Почта"/>
@@ -35,7 +35,7 @@
             <StackPanel x:Name="GroupDealShare">
                 <TextBlock Text="Процентная ставка"/>
                 <TextBox x:Name="DealShare"
-                         KeyDown="DealShare_KeyDown"/>
+                         PreviewTextInput="DealShare_PreviewTextInput"/>
             </StackPanel>
             <Button Content="Добавить"
                     Margin="0 10 0 0" Click="Button_Click"/>

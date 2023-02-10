@@ -138,19 +138,9 @@ namespace ClientSimulator
             HandledDigit(e);
         }
 
-        private void Phone_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        void HandledLetter(System.Windows.Input.TextCompositionEventArgs e)
         {
-            HandledLetter(e);
-        }
-
-        private void DealShare_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            HandledLetter(e);
-        }
-
-        void HandledLetter(System.Windows.Input.KeyEventArgs e)
-        {
-            if (new KeyConverter().ConvertToString(e.Key).All(letter => char.IsLetter(letter)))
+            if (double.TryParse(DealShare.Text + e.Text, out _) == false)
                 e.Handled = true;
         }
 
@@ -158,6 +148,22 @@ namespace ClientSimulator
         {
             if (new KeyConverter().ConvertToString(e.Key).All(letter => char.IsDigit(letter)))
                 e.Handled = true;
+        }
+
+        private void DealShare_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            HandledLetter(e);
+        }
+
+        private void Phone_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Regex regexPhone = new Regex(@"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$");
+
+            if (!regexPhone.IsMatch(Phone.Text))
+            {
+                MessageBox.Show("Не верный формат ввода номера телефона");
+                Phone.Text = "";
+            }
         }
     }
 }
